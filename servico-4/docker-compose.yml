@@ -1,0 +1,38 @@
+version: '3.1'
+services:
+  jogatina:
+    build: .
+    image: jogatina
+    container_name: jogatina
+    hostname: jogatina
+    restart: always
+    volumes:
+      - ./servicos/jogatina:/servico
+    command: python3 /servico/servico.py
+    ports:
+      - 5001:5000
+  sistemas:
+    build: .
+    image: sistemas
+    container_name: sistemas
+    hostname: sistemas
+    restart: always
+    volumes:
+      - ./servicos/sistemas:/servico
+    command: python3 /servico/servico.py
+    ports:
+      - 5002:5000
+  db_jogatina:
+    image: memcached
+    container_name: db_jogatina
+    hostname: db_jogatina
+    restart: always
+    ports:
+      - 5003:11211
+  db_sistemas:
+    image: memcached
+    container_name: db_sistemas
+    hostname: db_sistemas
+    restart: always
+    ports:
+      - 5004:11211
